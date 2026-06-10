@@ -38,3 +38,17 @@ SELECT
   item
 FROM orders
 CROSS JOIN order_counts
+
+
+
+-- window functions 
+
+select card_name, issued_amount
+from( SELECT *,  
+
+rank() over(partition by card_name order by issue_year, issue_month) as ranking
+
+
+FROM monthly_cards_issued)t
+where ranking = 1
+order by issued_amount desc
